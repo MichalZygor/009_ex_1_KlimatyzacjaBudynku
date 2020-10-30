@@ -1,21 +1,32 @@
+import java.text.DecimalFormat;
+
 public class AirConditioner {
     private double actualTemperature;  //Celsius
     private double thresholdLevel; //Celsius
     private double volume;  //m3
     final static double COUNT_DOWN = 1;
+    private boolean statusAirCondition;
 
-    public AirConditioner(double actualTemperature, double thresholdLevel, double volume) {
+    public AirConditioner(double actualTemperature, double thresholdLevel, double volume, boolean statusAirCondition) {
         this.actualTemperature = actualTemperature;
         this.thresholdLevel = thresholdLevel;
         this.volume = volume;
+        this.statusAirCondition = statusAirCondition;
     }
 
     public void reduceTemperature() {
         if (actualTemperature > thresholdLevel) {
             actualTemperature -= COUNT_DOWN;
             if (actualTemperature < thresholdLevel) actualTemperature = thresholdLevel;
-        } else
-            System.out.println("Osiągnięto minimalną temperaturę.");
+        } else {
+            statusAirCondition = false;
+            System.out.print("Osiągnięto minimalną temperaturę. ");
+        }
+    }
+
+    public String showTemperature() {
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        return "Aktualna temperatura wynosi: " + decimalFormat.format(actualTemperature) + ". Status: " + statusAirCondition;
     }
 
     public double getActualTemperature() {
@@ -30,19 +41,11 @@ public class AirConditioner {
         return thresholdLevel;
     }
 
-    public void setThresholdLevel(double thresholdLevel) {
-        this.thresholdLevel = thresholdLevel;
-    }
-
     public double getVolume() {
         return volume;
     }
 
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public static double getCountDown() {
-        return COUNT_DOWN;
+    public void setStatusAirCondition(boolean statusAirCondition) {
+        this.statusAirCondition = statusAirCondition;
     }
 }

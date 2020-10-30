@@ -1,16 +1,21 @@
 public class BasicAirConditioner extends AirConditioner {
-    private final static double COUNT_DOWN_BASIC = 1;
 
-    public BasicAirConditioner(double actualTemperature, double thresholdLevel, double volume) {
-        super(actualTemperature, thresholdLevel, volume);
+    public BasicAirConditioner(double actualTemperature, double thresholdLevel, double volume, boolean statusAirCondition) {
+        super(actualTemperature, thresholdLevel, volume, statusAirCondition);
     }
-
 
     public void reduceTemperature() {
-        if (super.actualTemperature > thresholdLevel) {
-            actualTemperature -= COUNT_DOWN;
-            if (actualTemperature < thresholdLevel) actualTemperature = thresholdLevel;
-        } else
-            System.out.println("Osiągnięto minimalną temperaturę.");
+        if (getActualTemperature() > getThresholdLevel()) {
+            setActualTemperature(getActualTemperature() - COUNT_DOWN / getVolume());
+            if (getActualTemperature() < getThresholdLevel()) setActualTemperature(getThresholdLevel());
+        } else {
+            setStatusAirCondition(false);
+            System.out.print("Osiągnięto minimalną temperaturę. ");
+        }
     }
+
+    public String showTemperature() {
+        return "Pokój ze podstawową klimatyzacją. " + super.showTemperature();
+    }
+
 }
