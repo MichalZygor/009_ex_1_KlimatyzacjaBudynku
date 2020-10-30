@@ -1,48 +1,36 @@
-public class AirConditioner {
-    private double actualTemperature;  //Celsius
-    private double thresholdLevel; //Celsius
-    private double volume;  //m3
-    final static double COUNT_DOWN = 1;
+import java.text.DecimalFormat;
 
-    public AirConditioner(double actualTemperature, double thresholdLevel, double volume) {
-        this.actualTemperature = actualTemperature;
+public class AirConditioner extends Room{
+    private double thresholdLevel; //Celsius
+    final static double COUNT_DOWN = 1;
+    private boolean statusAirCondition;
+
+    public AirConditioner(double actualTemperature, double volume, double thresholdLevel, boolean statusAirCondition) {
+        super(actualTemperature, volume);
         this.thresholdLevel = thresholdLevel;
-        this.volume = volume;
+        this.statusAirCondition = statusAirCondition;
     }
 
     public void reduceTemperature() {
-        if (actualTemperature > thresholdLevel) {
-            actualTemperature -= COUNT_DOWN;
-            if (actualTemperature < thresholdLevel) actualTemperature = thresholdLevel;
-        } else
-            System.out.println("Osiągnięto minimalną temperaturę.");
+        if (getActualTemperature() > thresholdLevel) {
+            setActualTemperature(getActualTemperature() - COUNT_DOWN);
+            if (getActualTemperature() < thresholdLevel) setActualTemperature(thresholdLevel);
+        } else {
+            statusAirCondition = false;
+            System.out.print("Osiągnięto minimalną temperaturę. ");
+        }
     }
 
-    public double getActualTemperature() {
-        return actualTemperature;
-    }
-
-    public void setActualTemperature(double actualTemperature) {
-        this.actualTemperature = actualTemperature;
+    public String showTemperature() {
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        return "Aktualna temperatura wynosi: " + decimalFormat.format(super.getActualTemperature()) + ". Status: " + statusAirCondition;
     }
 
     public double getThresholdLevel() {
         return thresholdLevel;
     }
 
-    public void setThresholdLevel(double thresholdLevel) {
-        this.thresholdLevel = thresholdLevel;
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public static double getCountDown() {
-        return COUNT_DOWN;
+    public void setStatusAirCondition(boolean statusAirCondition) {
+        this.statusAirCondition = statusAirCondition;
     }
 }
