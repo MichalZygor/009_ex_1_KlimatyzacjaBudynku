@@ -1,7 +1,7 @@
 public class BasicAirConditioner extends AirConditioner {
 
-    public BasicAirConditioner(double actualTemperature, double thresholdLevel, double volume, boolean statusAirCondition) {
-        super(actualTemperature, thresholdLevel, volume, statusAirCondition);
+    public BasicAirConditioner(double actualTemperature, double volume, double thresholdLevel, boolean statusAirCondition) {
+        super(actualTemperature, volume, thresholdLevel, statusAirCondition);
     }
 
     public void reduceTemperature() {

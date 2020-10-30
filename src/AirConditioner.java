@@ -1,23 +1,20 @@
 import java.text.DecimalFormat;
 
-public class AirConditioner {
-    private double actualTemperature;  //Celsius
+public class AirConditioner extends Room{
     private double thresholdLevel; //Celsius
-    private double volume;  //m3
     final static double COUNT_DOWN = 1;
     private boolean statusAirCondition;
 
-    public AirConditioner(double actualTemperature, double thresholdLevel, double volume, boolean statusAirCondition) {
-        this.actualTemperature = actualTemperature;
+    public AirConditioner(double actualTemperature, double volume, double thresholdLevel, boolean statusAirCondition) {
+        super(actualTemperature, volume);
         this.thresholdLevel = thresholdLevel;
-        this.volume = volume;
         this.statusAirCondition = statusAirCondition;
     }
 
     public void reduceTemperature() {
-        if (actualTemperature > thresholdLevel) {
-            actualTemperature -= COUNT_DOWN;
-            if (actualTemperature < thresholdLevel) actualTemperature = thresholdLevel;
+        if (getActualTemperature() > thresholdLevel) {
+            setActualTemperature(getActualTemperature() - COUNT_DOWN);
+            if (getActualTemperature() < thresholdLevel) setActualTemperature(thresholdLevel);
         } else {
             statusAirCondition = false;
             System.out.print("Osiągnięto minimalną temperaturę. ");
@@ -26,23 +23,11 @@ public class AirConditioner {
 
     public String showTemperature() {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        return "Aktualna temperatura wynosi: " + decimalFormat.format(actualTemperature) + ". Status: " + statusAirCondition;
-    }
-
-    public double getActualTemperature() {
-        return actualTemperature;
-    }
-
-    public void setActualTemperature(double actualTemperature) {
-        this.actualTemperature = actualTemperature;
+        return "Aktualna temperatura wynosi: " + decimalFormat.format(super.getActualTemperature()) + ". Status: " + statusAirCondition;
     }
 
     public double getThresholdLevel() {
         return thresholdLevel;
-    }
-
-    public double getVolume() {
-        return volume;
     }
 
     public void setStatusAirCondition(boolean statusAirCondition) {

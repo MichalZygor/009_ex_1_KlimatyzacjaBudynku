@@ -1,7 +1,7 @@
 public class ProAirConditioner extends AirConditioner {
 
-    public ProAirConditioner(double actualTemperature, double thresholdLevel, double volume, boolean statusAirCondition) {
-        super(actualTemperature, thresholdLevel, volume, statusAirCondition);
+    public ProAirConditioner(double actualTemperature, double volume, double thresholdLevel, boolean statusAirCondition) {
+        super(actualTemperature, volume, thresholdLevel, statusAirCondition);
     }
 
     public String showTemperature(){
